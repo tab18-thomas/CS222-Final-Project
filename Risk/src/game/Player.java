@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class Player {
 
@@ -10,6 +11,7 @@ public abstract class Player {
 	int troopCards; // Number of troop cards each player has
 	int troops; 
 	public GameManager manager;
+	public String playerName; 
 	
 	
 // Methods
@@ -19,16 +21,14 @@ public abstract class Player {
 		territories = new ArrayList<>();
 		troopCards = 0;
 		this.manager = manager;
-	}
-	
-	// String
-	public String toString() {
-		String outputString = ""; 
-		if (playerNum > 0) { // this makes it so it only prints player number when its a CPU's turn
-			outputString = "Player " + playerNum + ": ";
+		if(playerNum == 0) {
+			Scanner input = new Scanner(System.in); // Input Scanner
+			System.out.println("Enter your name.");
+			playerName = input.next();
 		}
-		outputString += "Troop Cards: " + troopCards + "\n";
-		return outputString;
+		else {
+			playerName = "Player " + (playerNum + 1); 
+		}
 	}
 	
 	// This method lets you add territories to the player's list of territories
@@ -51,7 +51,7 @@ public abstract class Player {
 	public void removeTroopCards() {
 		troopCards = 0; // Removes the troop cards
 		troops += 5; // I want to add a specific amount of troops
-		System.out.println("Traded 3 troop cards for 5 troops.");
+		System.out.println(playerName + " traded 3 troop cards for 5 troops.");
 	}
 	
 	public abstract void doTurn(); // Abstract method that tells us what happens when its a player's turn
@@ -69,7 +69,7 @@ public abstract class Player {
 	public String getTerritoryIndices() {
 		String finalString = "";
 		for(int i = 0; i< territories.size(); i++) {
-			finalString += "Index: "+i +" " +territories.get(i).name + ": "+ territories.get(i).numTroops + "\n";
+			finalString += "Index: "+i +" " +territories.get(i).name + " - Troops: "+ territories.get(i).numTroops + "\n";
 		}
 		return finalString;
 	}
@@ -83,4 +83,5 @@ public abstract class Player {
 		System.out.println("You only have: " + this.troops+ ". Pick a lower number.");
 		return -1; // This number is returned to show it was an invalid choice
 	}
+	
 }

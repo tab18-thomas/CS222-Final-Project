@@ -55,7 +55,8 @@ public class Territory {
 	public String getBorderingTerritoryIndices(Player excludePlayer) {
 		String finalString = "";
 		for(int i = 0; i < borderingTerritories(excludePlayer).size(); i++) {
-			finalString += "Index: " + i + " " + borderingTerritories(excludePlayer).get(i).name + "\n";
+			Territory t = borderingTerritories(excludePlayer).get(i);
+			finalString += "Index: " + i + " " + t.name + " - Troops: " + t.numTroops+ "\n";
 		}
 		return finalString;
 	}

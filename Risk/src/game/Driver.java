@@ -6,13 +6,11 @@ public class Driver {
 	
 	GameManager manager = new GameManager(); 
 	
-	manager.setUp();
-	boolean running = true; 
+	manager.setUp(); 
 	
-	while(running) {
+	while(manager.running) {
 		manager.gameLoop(); 
 	}
 	}
-
 }
 	
